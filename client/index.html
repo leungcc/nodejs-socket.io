@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>test socket.io</title>
+</head>
+<body>
+    <div>
+        test socket.io
+        <button id="btnSend">send socket msg</button>
+    </div>
+    <script src="js/jquery-1.7.2.min.js"></script>
+    <script src="js/socket.io.js"></script>
+    <script>
+    $(function() {
+        console.log(io)
+        var socket = io.connect('http://127.0.0.1:3001');
+        socket.on('message', function(data) {
+            console.log("get websocket message....")
+            console.log(data);
+        });
+
+        $("#btnSend").click(function(e) {
+            console.log("send message");
+            socket.emit('message', 'hahaha');
+        });
+
+        $.ajax({
+            url: 'service/',
+            success: function(resp) {
+                console.log(typeof resp.data);
+            }
+        })
+    })
+    </script>
+</body>
+</html>
